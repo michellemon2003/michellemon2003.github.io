@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { sitePath } from "../config";
+---
+
+<BaseLayout
+  title="MVP 개선"
+  description="팀 프로젝트로 진행한 비공개 MVP와 앞으로의 보안 개선 계획을 구분해 정리했습니다."
+  sideBarActiveItemID="mvp"
+>
+  <header class="page-intro">
+    <p class="eyebrow">PRIVATE MVP · IN PROGRESS</p>
+    <h1>팀 프로젝트와 보안 개선</h1>
+    <p>
+      팀 프로젝트에서 UI와 기능 구현 과정을 경험했습니다. 저장소는 아직 비공개이며,
+      아래 내용은 보유한 개발 문서와 발표 자료에서 확인되는 범위만 정리했습니다.
+      구현된 기능과 앞으로 적용할 보안 개선을 명확히 구분했습니다.
+    </p>
+  </header>
+
+  <aside class="status-note" aria-label="공개 범위 안내">
+    <strong>공개 범위 안내</strong>
+    <p>소스 코드는 수정과 정리가 끝난 뒤 공개 여부를 결정합니다. 현재는 저장소 링크 대신 작업 화면과 확인 가능한 기여 범위만 소개합니다.</p>
+  </aside>
+
+  <article class="mvp-project" id="react-native">
+    <div class="mvp-copy">
+      <p class="project-status">비공개 팀 MVP · 기능 보완 중</p>
+      <h2>Wardrobe — React Native</h2>
+      <p>
+        옷 이미지 등록·분류, Closet, Lookbook, Dressroom, 상황별 코디 추천을 하나의 흐름으로 연결하는 모바일 MVP입니다.
+        문서에는 Supabase 인증 연결, 이미지 배경 제거와 분류 API, 색상·계절 정보 수정, 추천 결과 표시와 UI 오류 수정 과정이 기록되어 있습니다.
+      </p>
+      <dl class="mvp-facts">
+        <div><dt>나의 역할</dt><dd>UI 담당으로 화면 흐름과 기능 상태를 점검하고, 분석·수정 화면, Dressroom, Lookbook 등의 UI 보완에 참여했습니다.</dd></div>
+        <div><dt>확인된 기술</dt><dd>React Native, Expo, Supabase Auth/Database, REST API 연동</dd></div>
+        <div><dt>현재 한계</dt><dd>분류 기준과 DB schema의 불일치, 일부 플랫폼별 동작, API 응답 지연과 남은 UI 오류가 문서에 기록되어 있습니다.</dd></div>
+      </dl>
+      <h3>앞으로 적용할 보안 개선</h3>
+      <ul class="security-list">
+        <li>Supabase Row Level Security로 사용자별 옷·코디 데이터 접근을 분리하고 두 계정으로 권한을 검증합니다.</li>
+        <li>이미지 저장소를 비공개 정책으로 구성하고 파일 형식·크기 검증과 삭제 흐름을 확인합니다.</li>
+        <li>API key를 앱 코드에서 분리하고, 서버 측 호출·rate limit·입력 검증을 적용할 수 있는 구조를 검토합니다.</li>
+      </ul>
+    </div>
+    <figure class="mvp-shot">
+      <img src={sitePath("images/mvp-assets/wardrobe-react-native.webp")} alt="React Native Wardrobe의 옷 정보 수정과 Dressroom UI 작업 기록" width="1105" height="1430" loading="lazy" />
+      <figcaption>개발 문서에 기록된 실제 UI 수정 화면. 공개 저장소 링크는 제공하지 않습니다.</figcaption>
+    </figure>
+  </article>
+
+  <article class="mvp-project" id="kotlin">
+    <div class="mvp-copy">
+      <p class="project-status">비공개 팀 프로젝트 · 개선 검토 중</p>
+      <h2>Wardrobe — Kotlin</h2>
+      <p>
+        날씨와 옷 정보를 바탕으로 코디를 추천하고, 옷장·업로드·Dressroom·AI 피드백을 연결한 Android 프로젝트입니다.
+        문서에서 Weather API 기반 추천, Firestore 옷장, TFLite 이미지 분석, 색상 조합, Gemini 피드백과 Pinterest 연결을 확인했습니다.
+      </p>
+      <dl class="mvp-facts">
+        <div><dt>기여 범위</dt><dd>팀 프로젝트의 기능 설계·구현·통합 테스트 과정에 참여했습니다. 개인 담당 세부 기능은 저장소 공개 전 최종 확인해 보완할 예정입니다.</dd></div>
+        <div><dt>확인된 기술</dt><dd>Kotlin, Android Studio, Firebase/Firestore, TFLite, Weather API, Gemini API</dd></div>
+        <div><dt>현재 상태</dt><dd>기능 구현과 수정 기록은 보유하고 있으나, 공개 저장소로 소개하기 전 코드 정리와 최신 실행 검증이 필요합니다.</dd></div>
+      </dl>
+      <h3>앞으로 적용할 보안 개선</h3>
+      <ul class="security-list">
+        <li>Firebase Authentication과 Firestore/Storage Rules를 점검해 다른 사용자의 데이터 읽기·쓰기를 차단합니다.</li>
+        <li>API key 제한, App Check 또는 backend proxy 적용 가능성을 비교하고 저장소의 secret 노출 여부를 검사합니다.</li>
+        <li>업로드 이미지의 개인정보 처리, 계정 삭제, 데이터 보관·삭제 정책을 기능 흐름과 함께 테스트합니다.</li>
+      </ul>
+    </div>
+    <figure class="mvp-shot">
+      <img src={sitePath("images/mvp-assets/wardrobe-kotlin.webp")} alt="Kotlin Wardrobe의 업로드, 옷장, 추천, Dressroom 화면 흐름" width="1105" height="1430" loading="lazy" />
+      <figcaption>개발 문서에 정리된 Android 화면 흐름과 앱 구조. 소스 저장소는 비공개 상태입니다.</figcaption>
+    </figure>
+  </article>
+
+  <article class="mvp-project" id="kultubond">
+    <div class="mvp-copy">
+      <p class="project-status award">DIVE 2024 · 삼정KPMG 발제 부문 1위</p>
+      <h2>KULTUBOND</h2>
+      <p>
+        2027 서울 세계청년대회를 위한 문화 교류·관광 서비스 제안입니다. 관심사와 여행 성향을 바탕으로 참가자를 연결하고,
+        팀·채팅·장소 인증·퀴즈·음식 알레르기 필터를 결합한 사용자 흐름과 화면 prototype을 설계했습니다.
+      </p>
+      <dl class="mvp-facts">
+        <div><dt>프로젝트 유형</dt><dd>해커톤 서비스 기획 및 UI prototype 제안</dd></div>
+        <div><dt>나의 참여</dt><dd>팀원으로 서비스 아이디어 구체화, 사용자 흐름과 prototype 발표 과정에 참여했습니다.</dd></div>
+        <div><dt>결과와 범위</dt><dd>삼정KPMG 발제 부문 1위로 선정되었습니다. 발표 자료는 서비스 제안이며, 운영 중인 완성 애플리케이션으로 소개하지 않습니다.</dd></div>
+      </dl>
+      <h3>보안 관점에서 확장한다면</h3>
+      <ul class="security-list">
+        <li>위치 인증은 필요한 시점에만 최소한으로 수집하고, 보관 기간과 삭제 기준을 먼저 정의합니다.</li>
+        <li>채팅·친구·팀 기능에 차단·신고·접근 제어와 abuse 방지 정책을 포함합니다.</li>
+        <li>알레르기와 선호 정보의 공개 범위를 사용자가 선택하도록 하고 서버 권한 검사를 설계합니다.</li>
+      </ul>
+    </div>
+    <figure class="mvp-shot">
+      <img src={sitePath("images/mvp-assets/kultubond.webp")} alt="KULTUBOND의 서비스 이름과 모바일 시작 화면 prototype" width="1300" height="732" loading="lazy" />
+      <figcaption>DIVE 2024 발표 자료의 KULTUBOND 서비스 concept 화면.</figcaption>
+    </figure>
+  </article>
+
+  <section class="portfolio-section next-step">
+    <h2>현재 프로젝트와 다음 단계의 구분</h2>
+    <p>
+      위 세 경험은 이미 참여한 팀 프로젝트입니다. 다만 보안 개선 항목은 아직 완료 성과가 아니라 앞으로 직접 구현하고 검증할 계획입니다.
+      우선 하나의 MVP를 선택해 자산·위협·접근 권한을 정리하고, 작은 보안 수정부터 테스트 기록과 함께 공개할 예정입니다.
+    </p>
+    <a class="detail" href={sitePath("interests/")}>전체 학습 로드맵 보기 ↗</a>
+  </section>
+</BaseLayout>
