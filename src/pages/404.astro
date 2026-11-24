@@ -1,0 +1,9 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { sitePath } from "../config";
+---
+
+<BaseLayout title="페이지를 찾을 수 없습니다">
+  <h1 class="text-3xl font-bold">페이지를 찾을 수 없습니다</h1>
+  <a class="btn btn-neutral mt-6" href={sitePath()}>소개로 돌아가기</a>
+</BaseLayout>

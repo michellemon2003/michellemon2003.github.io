@@ -1,0 +1,18 @@
+---
+import { sitePath } from "../config";
+const { sideBarActiveItemID } = Astro.props;
+const pages = [
+  { id: "home", label: "소개", path: "" },
+  { id: "projects", label: "프로젝트", path: "projects/" },
+  { id: "interests", label: "향후 계획", path: "interests/" },
+];
+---
+
+<nav aria-label="포트폴리오 메뉴">
+  <ul class="menu w-full gap-1">
+    {pages.map(({ id, label, path }) => (
+      <li><a href={sitePath(path)} aria-current={id === sideBarActiveItemID ? "page" : undefined}
+        class:list={["py-3 text-base", { active: id === sideBarActiveItemID }]}>{label}</a></li>
+    ))}
+  </ul>
+</nav>

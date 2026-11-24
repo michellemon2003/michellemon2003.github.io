@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="향후 개발 계획" sideBarActiveItemID="interests">
+  <div class="prose max-w-none">
+    <h1>향후 개발 계획</h1>
+    <p>보안 분야로 진로를 구체화하면서 다음 순서로 학습과 실습을 이어갈 계획입니다.</p>
+    <ol>
+      <li><strong>팀 MVP의 보안 점검.</strong> 기존 애플리케이션의 로그인 흐름과 데이터 저장 위치를 정리하고, 인증·접근 제어·입력 검증 중 한 가지를 개선해 테스트합니다.</li>
+      <li><strong>작은 분석 도구 개발.</strong> Python으로 실습용 로그나 PCAP을 요약하고, 평소와 다른 패턴을 구분하는 간단한 규칙을 만들어 봅니다.</li>
+      <li><strong>AI 기반 탐지 실험.</strong> 라벨이 있는 공개 데이터에서 간단한 탐지 모델을 학습시키고, 기본 규칙과 비교해 오탐과 미탐을 분석해 보고 싶습니다.</li>
+    </ol>
+  </div>
+</BaseLayout>

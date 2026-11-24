@@ -1,0 +1,30 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SideBar from "../components/SideBar.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+
+const { title, description = SITE_DESCRIPTION, sideBarActiveItemID } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ko" data-theme="lofi">
+  <head>
+    <BaseHead title={title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} | 사이버보안 포트폴리오`} description={description} />
+  </head>
+  <body>
+    <a class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:p-3" href="#main-content">본문으로 건너뛰기</a>
+    <div class="bg-base-100 drawer lg:drawer-open">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" aria-label="탐색 메뉴 열기 또는 닫기" />
+      <div class="drawer-content bg-base-100 min-w-0">
+        <Header title={SITE_TITLE} />
+        <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-[900px] px-5 py-9 md:px-10 md:py-14">
+          <slot />
+        </main>
+        <Footer />
+      </div>
+      <SideBar sideBarActiveItemID={sideBarActiveItemID} />
+    </div>
+  </body>
+</html>

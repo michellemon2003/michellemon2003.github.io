@@ -1,0 +1,14 @@
+---
+import SideBarMenu from "./SideBarMenu.astro";
+import { SITE_TITLE, GITHUB_URL, sitePath } from "../config";
+const { sideBarActiveItemID } = Astro.props;
+---
+
+<div class="drawer-side z-40">
+  <label for="my-drawer" aria-label="메뉴 닫기" class="drawer-overlay"></label>
+  <aside class="p-5 min-h-full w-64 bg-base-200 text-base-content flex flex-col">
+    <a href={sitePath()} class="block px-3 py-6 text-xl font-bold">{SITE_TITLE}</a>
+    <SideBarMenu sideBarActiveItemID={sideBarActiveItemID} />
+    {GITHUB_URL && <a href={GITHUB_URL} class="link px-3 pt-6">GitHub 프로필</a>}
+  </aside>
+</div>

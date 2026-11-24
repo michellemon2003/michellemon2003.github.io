@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HorizontalCard from "../components/HorizontalCard.astro";
+import { SITE_TITLE, GITHUB_URL, sitePath } from "../config";
+import profile from "../profile.json";
+---
+
+<BaseLayout sideBarActiveItemID="home">
+  <header class="border-b border-base-300 pb-9">
+    <p class="mb-3 text-base font-medium">안녕하세요, {SITE_TITLE}입니다.</p>
+    <h1 class="text-3xl font-bold leading-tight md:text-5xl">네트워크에서 시작해<br />사이버보안을 공부합니다</h1>
+    <p class="mt-5 max-w-prose text-lg leading-relaxed">
+      사이버보안 분야로 진로를 전환하며 기초 역량을 쌓고 있는 대학생입니다.
+      컴퓨터네트워크 수업에서 패킷이 전달되는 과정을 실습하면서, 통신이 어떻게 동작하고 어떤 조건에서 안전하지 않을 수 있는지에 관심을 갖게 되었습니다.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href={sitePath("projects/")} class="btn btn-neutral">프로젝트 보기</a>
+      <a href={GITHUB_URL} class="btn btn-outline">GitHub 프로필</a>
+      {profile.email && <a href={`mailto:${profile.email}`} class="btn btn-outline">이메일</a>}
+      {profile.linkedinUrl && <a href={profile.linkedinUrl} class="btn btn-outline">LinkedIn</a>}
+      {profile.resumePath && <a href={sitePath(profile.resumePath)} class="btn btn-outline" download>이력서 PDF</a>}
+    </div>
+  </header>
+
+  <section class="mt-9" aria-labelledby="learning">
+    <h2 id="learning" class="mb-3 text-2xl font-bold">지금 공부하는 분야</h2>
+    <p class="max-w-prose leading-relaxed">
+      Linux 환경에서 Python으로 작은 도구를 만들고, Wireshark와 네트워크 실습을 통해 프로토콜의 동작을 살펴봅니다.
+      예상과 다른 결과가 나오면 코드, 패킷 캡처, 실행 결과를 비교하고 관찰한 내용을 GitHub에 정리합니다.
+      이 경험을 바탕으로 보안 인턴십을 준비하며, 분석 결과를 근거와 함께 설명하는 연습을 하고 있습니다.
+    </p>
+  </section>
+
+  <section class="mt-9" aria-labelledby="featured">
+    <h2 id="featured" class="mb-4 text-2xl font-bold">대표 프로젝트</h2>
+    <HorizontalCard title="컴퓨터네트워크 실습 기록" desc="Mininet과 Switchyard로 패킷 전달 방식을 실험하고 검증한 수업 기록입니다." url={sitePath("projects/#computer-networks")} target="_self" />
+    <HorizontalCard title="네트워크 트래픽 분석기" desc="Ethernet PCAP을 읽고 프로토콜별 패킷 수를 요약하는 Python 도구입니다." url={sitePath("projects/#traffic")} target="_self" />
+  </section>
+</BaseLayout>

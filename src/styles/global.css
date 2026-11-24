@@ -1,0 +1,10 @@
+body {
+  font-family: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+:focus-visible {
+  outline: 2px solid #176370;
+  outline-offset: 3px;
+}
