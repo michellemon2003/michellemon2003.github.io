@@ -1,15 +1,48 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+const plans = [
+  {
+    id: "mvp", title: "기존 MVP 애플리케이션의 보안 개선", status: "기획 단계",
+    goal: "팀 MVP를 다시 살펴보고 로그인 흐름과 데이터 접근 권한을 먼저 문서화하고 싶습니다. 각 사용자 역할이 볼 수 있는 데이터를 정리하면 보안 개선 범위를 구체적으로 정할 수 있습니다.",
+    scope: "인증이 필요한 화면과 데이터 경로를 정리하고, 접근 제어 또는 입력 검증 한 가지를 첫 개선 대상으로 선택합니다. 저장소와 구조는 팀의 동의와 검토 후 결정할 예정입니다.",
+    steps: ["로그인과 데이터 흐름 문서화", "역할별 권한 및 입력 규칙 정의", "우선순위가 높은 기능 한 가지 개선"],
+    tools: "기존 MVP의 기술 스택, 권한 요구사항 표, 테스트 프레임워크",
+    test: "승인된 테스트 환경에서 역할마다 허용되는 동작과 거부되는 동작을 짝지어 확인합니다. 기존 주요 기능이 계속 동작하는지도 함께 검증합니다.",
+    output: "보안 요구사항 문서, 개선 코드, 테스트 기록, 변경 전후 비교",
+  },
+  {
+    id: "monitoring", title: "네트워크 보안 모니터링 및 분석 도구", status: "기존 도구 확장 계획",
+    goal: "현재 PCAP 분석기는 캡처 전체에서 프로토콜이 얼마나 자주 나타났는지 보여줍니다. 트래픽이 어느 시간대에 어떻게 달라지는지 살펴볼 수 있도록 통계를 확장하고 싶습니다.",
+    scope: "오프라인 캡처와 실습 로그를 사용해 시간 구간별 패킷 수와 바이트 수를 집계하고, 필터와 시계열 차트를 제공하는 작은 대시보드를 만듭니다.",
+    steps: ["PCAP·로그의 시간과 프로토콜 필드 정리", "구간별 집계와 필터 구현", "차트와 CSV 출력 비교"],
+    tools: "Python, Pandas, dpkt, Plotly 또는 Streamlit",
+    test: "시간과 패킷 수를 미리 아는 합성 캡처로 경계 시각을 검증하고, 구간별 합계가 전체 요약 및 Wireshark 집계와 일치하는지 확인합니다.",
+    output: "분석 대시보드, 합성 테스트 자료, 집계 기준과 한계를 설명한 보고서",
+  },
+  {
+    id: "anomaly", title: "AI 기반 네트워크 이상 탐지", status: "향후 학습·탐구 계획",
+    goal: "규칙 기반 분석은 조건을 설명하기 쉽지만 조건에 포함되지 않은 패턴은 놓칠 수 있습니다. 공개 데이터를 활용해 간단한 모델이 어떤 패턴을 구분하는지 비교하고 싶습니다.",
+    scope: "라벨의 의미와 사용 조건을 확인한 공개 데이터셋에서 클래스 분포와 결측치를 살펴봅니다. 시간·세션이 겹치지 않도록 데이터를 분리한 뒤 단순 규칙과 분류 모델을 비교합니다.",
+    steps: ["데이터셋 선정과 특징 검토", "학습·평가 분리와 기준 규칙 설정", "모델 학습과 오탐·미탐 분석"],
+    tools: "Python, Pandas, scikit-learn",
+    test: "Precision, Recall, F1-score와 혼동 행렬을 함께 비교합니다. 오탐과 미탐 사례를 살펴보고, 결과가 해당 데이터의 분포와 라벨 품질에 의존한다는 점을 기록합니다.",
+    output: "재현 가능한 학습 코드, 비교용 모델, 평가 그래프 및 결과 보고서",
+  },
+];
 ---
-
 <BaseLayout title="향후 개발 계획" sideBarActiveItemID="interests">
-  <div class="prose max-w-none">
-    <h1>향후 개발 계획</h1>
-    <p>보안 분야로 진로를 구체화하면서 다음 순서로 학습과 실습을 이어갈 계획입니다.</p>
-    <ol>
-      <li><strong>팀 MVP의 보안 점검.</strong> 기존 애플리케이션의 로그인 흐름과 데이터 저장 위치를 정리하고, 인증·접근 제어·입력 검증 중 한 가지를 개선해 테스트합니다.</li>
-      <li><strong>작은 분석 도구 개발.</strong> Python으로 실습용 로그나 PCAP을 요약하고, 평소와 다른 패턴을 구분하는 간단한 규칙을 만들어 봅니다.</li>
-      <li><strong>AI 기반 탐지 실험.</strong> 라벨이 있는 공개 데이터에서 간단한 탐지 모델을 학습시키고, 기본 규칙과 비교해 오탐과 미탐을 분석해 보고 싶습니다.</li>
-    </ol>
+  <header class="page-intro"><h1>향후 개발 계획</h1><p>팀 개발에 보안 요구사항을 적용하고, 네트워크 분석을 거쳐 데이터 기반 탐지까지 학습 범위를 넓히고자 합니다.</p></header>
+  <nav class="plan-index" aria-label="개발 제안 목록">{plans.map(plan => <a href={`#${plan.id}`}>{plan.title}</a>)}</nav>
+  <div class="article-body">
+    {plans.map(plan => (
+      <section id={plan.id} class="plan">
+        <p class="tech">{plan.status}</p><h2>{plan.title}</h2><p>{plan.goal}</p><p>{plan.scope}</p>
+        <ol class="flow">{plan.steps.map(step => <li>{step}</li>)}</ol>
+        <dl class="facts"><div><dt>기술 후보</dt><dd>{plan.tools}</dd></div><div><dt>검증 방법</dt><dd>{plan.test}</dd></div><div><dt>예상 결과물</dt><dd>{plan.output}</dd></div></dl>
+      </section>
+    ))}
+    <section><h2>기술 성장 로드맵</h2>
+      <ol class="flow"><li>네트워크·Python 기초 실습</li><li>MVP 보안 요구사항 적용</li><li>트래픽 집계와 데이터 검증</li><li>모델 학습과 탐지 결과 평가</li></ol>
+    </section>
   </div>
 </BaseLayout>

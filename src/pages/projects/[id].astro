@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { GITHUB_URL, sitePath } from "../../config";
+import { projects } from "../../projects";
+
+export function getStaticPaths() {
+  return projects.map(project => ({ params: { id: project.id }, props: { project } }));
+}
+const { project } = Astro.props;
+const notes: Record<string, {steps:string[]; next:string; image?:string; caption?:string}> = {
+  password: {
+    steps: ["터미널에서 예시 입력을 숨겨 받기", "길이와 예측 가능한 패턴 검사", "판정 이유와 개선 방향 출력"],
+    next: "패턴 목록을 넓히고 문자 처리와 길이 경계에 대한 회귀 테스트를 추가할 수 있습니다.",
+    image: "password.png", caption: "흔한 예시 비밀번호를 입력했을 때 약한 비밀번호로 판정하고 그 이유를 표시한 실행 기록입니다.",
+  },
+  traffic: {
+    steps: ["Ethernet PCAP 레코드를 한 프레임씩 읽기", "디코딩된 헤더에 따라 한 범주로 집계", "동일한 집계를 터미널과 PNG로 출력"],
+    next: "PCAPNG 지원과 시간 구간별 통계를 추가하면 서로 다른 캡처의 변화 양상을 비교할 수 있습니다.",
+    image: "protocols.png", caption: "합성 PCAP의 프로토콜 분포입니다. TCP 2개, UDP·ICMP·ARP·기타 각 1개를 표시합니다.",
+  },
+  "computer-networks": {
+    steps: ["Mininet에서 테스트 토폴로지 구성", "Switchyard 테스트 또는 OpenFlow 규칙 적용", "패킷 전달과 pingall 결과 비교"],
+    next: "링크 지연 조건을 고정하고 ARP와 ICMP를 따로 캡처해 첫 응답 시간의 원인을 검증할 수 있습니다.",
+  },
+  "network-security": {
+    steps: ["격리된 VMware 환경에서 기준 상태 기록", "실습 후 패킷과 호스트 상태 비교", "관찰 결과를 기밀성·무결성·가용성과 연결"],
+    next: "동일한 실습 조건에서 암호화된 관리 접속의 캡처를 비교해 관찰 가능한 정보가 어떻게 달라지는지 확인할 수 있습니다.",
+  },
+};
+const note = notes[project.id];
+---
+<BaseLayout title={project.title} description={project.problem} sideBarActiveItemID="projects">
+  <a class="detail" href={sitePath("projects/")}>← 프로젝트 목록</a>
+  <header class="page-intro"><p class="tech">{project.type}</p><h1>{project.title}</h1><p>{project.problem}</p><p class="tech">{project.tools}</p></header>
+  <div class="article-body">
+    <section><h2>학습 목표와 수행 내용</h2><p>{project.method}</p>
+      <ol class="flow">{note.steps.map(step => <li>{step}</li>)}</ol>
+    </section>
+    <section><h2>담당 역할과 기여</h2><p>{project.role}</p></section>
+    <section><h2>테스트와 관찰 결과</h2><p>{project.result}</p>
+      {note.image && <figure><img src={sitePath(`images/${note.image}`)} alt={note.caption} loading="lazy" /><figcaption>{note.caption}</figcaption></figure>}
+    </section>
+    <section><h2>한계와 개선 방향</h2><p>{project.lesson}</p><p>{note.next}</p></section>
+    <a class="primary-link" href={`${GITHUB_URL}/${project.repository}`}>GitHub에서 코드와 기록 보기</a>
+  </div>
+</BaseLayout>

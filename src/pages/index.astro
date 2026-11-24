@@ -6,15 +6,15 @@ import profile from "../profile.json";
 ---
 
 <BaseLayout sideBarActiveItemID="home">
-  <header class="border-b border-base-300 pb-9">
-    <p class="mb-3 text-base font-medium">안녕하세요, {SITE_TITLE}입니다.</p>
+  <header class="portfolio-hero">
+    <p class="hero-name">안녕하세요, {SITE_TITLE}입니다.</p>
     <h1 class="text-3xl font-bold leading-tight md:text-5xl">네트워크에서 시작해<br />사이버보안을 공부합니다</h1>
     <p class="mt-5 max-w-prose text-lg leading-relaxed">
       사이버보안 분야로 진로를 전환하며 기초 역량을 쌓고 있는 대학생입니다.
-      컴퓨터네트워크 수업에서 패킷이 전달되는 과정을 실습하면서, 통신이 어떻게 동작하고 어떤 조건에서 안전하지 않을 수 있는지에 관심을 갖게 되었습니다.
+      팀과 함께 MVP를 개발한 경험에서 출발해, 애플리케이션을 안전하게 설계하려면 무엇을 검증해야 하는지 공부하고 있습니다.
     </p>
     <div class="mt-6 flex flex-wrap gap-3">
-      <a href={sitePath("projects/")} class="btn btn-neutral">프로젝트 보기</a>
+      <a href={sitePath("projects/")} class="primary-link">프로젝트 보기</a>
       <a href={GITHUB_URL} class="btn btn-outline">GitHub 프로필</a>
       {profile.email && <a href={`mailto:${profile.email}`} class="btn btn-outline">이메일</a>}
       {profile.linkedinUrl && <a href={profile.linkedinUrl} class="btn btn-outline">LinkedIn</a>}
@@ -22,7 +22,7 @@ import profile from "../profile.json";
     </div>
   </header>
 
-  <section class="mt-9" aria-labelledby="learning">
+  <section class="portfolio-section" aria-labelledby="learning">
     <h2 id="learning" class="mb-3 text-2xl font-bold">지금 공부하는 분야</h2>
     <p class="max-w-prose leading-relaxed">
       Linux 환경에서 Python으로 작은 도구를 만들고, Wireshark와 네트워크 실습을 통해 프로토콜의 동작을 살펴봅니다.
@@ -31,9 +31,24 @@ import profile from "../profile.json";
     </p>
   </section>
 
-  <section class="mt-9" aria-labelledby="featured">
+  <section class="portfolio-section" aria-labelledby="featured">
     <h2 id="featured" class="mb-4 text-2xl font-bold">대표 프로젝트</h2>
-    <HorizontalCard title="컴퓨터네트워크 실습 기록" desc="Mininet과 Switchyard로 패킷 전달 방식을 실험하고 검증한 수업 기록입니다." url={sitePath("projects/#computer-networks")} target="_self" />
-    <HorizontalCard title="네트워크 트래픽 분석기" desc="Ethernet PCAP을 읽고 프로토콜별 패킷 수를 요약하는 Python 도구입니다." url={sitePath("projects/#traffic")} target="_self" />
+    <div class="project-grid">
+      <HorizontalCard title="비밀번호 강도 분석기" desc="Python으로 입력을 숨겨 받고 예측 가능한 패턴을 검사합니다. 판정 이유와 규칙의 한계를 함께 확인할 수 있습니다." url={sitePath("projects/password/")} target="_self" />
+      <HorizontalCard title="네트워크 트래픽 분석기" desc="Ethernet PCAP을 읽어 프로토콜별 비율과 캡처 크기를 집계하고 결과를 차트로 표시합니다." url={sitePath("projects/traffic/")} target="_self" />
+    </div>
+  </section>
+  <section class="portfolio-section">
+    <h2>기술을 적용한 경험</h2>
+    <dl class="facts">
+      <div><dt>Python · Linux</dt><dd>로컬 CLI로 입력 검증과 파일 처리를 실습하고 WSL에서 결과를 재현했습니다.</dd></div>
+      <div><dt>Mininet · Switchyard</dt><dd>토폴로지와 전달 규칙을 바꾸고 패킷이 예상한 경로로 전달되는지 확인했습니다.</dd></div>
+      <div><dt>Wireshark · GitHub</dt><dd>실습 캡처를 해석하고 코드와 관찰 근거를 저장소에 정리했습니다.</dd></div>
+    </dl>
+  </section>
+  <section class="portfolio-section">
+    <h2>다음에 개발할 프로젝트</h2>
+    <p>팀 MVP의 접근 권한을 점검한 뒤, 트래픽 집계를 시간대별로 확장하고 공개 데이터에서 탐지 모델과 기준 규칙을 비교할 계획입니다.</p>
+    <a class="detail" href={sitePath("interests/")}>개발 제안과 검증 계획 보기 ↗</a>
   </section>
 </BaseLayout>
